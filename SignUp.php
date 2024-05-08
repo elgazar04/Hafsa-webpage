@@ -51,18 +51,6 @@ class SignUp extends Person {
         $this->city = $city;
     }
 
-    // Logic for handling incorrect username/password
-    public function incorrectNamePass() {
-        $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
-        $params = [$this->username, $this->password];
-        $result = $this->db->executeQuery($sql, $params);
-
-        if ($result->num_rows == 0) {
-            $this->db->closeConnection();
-            throw new Exception("Incorrect username or password. Please try again.");
-        }
-    }
-/* 
     public function forgetPass() {
         // Logic for password recovery
     } */
