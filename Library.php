@@ -290,7 +290,7 @@ class Library {
         }
     }
 }
-$islamicWebsite = new IslamicWebsite();
+$islamicWebsite = new Library();
 $userChoice = $islamicWebsite->promptUser();
 $islamicWebsite->handleChoice($userChoice);
 ?>
