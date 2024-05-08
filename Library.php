@@ -74,9 +74,9 @@ class Library {
         }
     }
 
-    public function hijri_calendar() {
+    /* public function hijri_calendar() {
     echo "Hijri calendar is not implemented yet.\n";
-}
+} */
 
    public function set_sheikh() {
         $sheikhs = array(
@@ -125,7 +125,7 @@ class Library {
         $youtubeLink = $surahs[$surahChoice];
         return array($selectedSurah, $youtubeLink);
     }
-    public function asmaa_husnaa() {
+    /* public function asmaa_husnaa() {
     $names_of_allah = array(
         "Ar-Rahman", "Ar-Rahim", "Al-Malik", "Al-Quddus", "As-Salam",
         "Al-Mu'min", "Al-Muhaymin", "Al-Aziz", "Al-Jabbar", "Al-Mutakabbir",
@@ -150,22 +150,22 @@ class Library {
     echo "Asmaa Allah al-Husna (The 99 Names of Allah):\n";
     foreach ($names_of_allah as $index => $name) {
         echo ($index + 1) . ". $name\n";
-    }
-}
-    public function shahada() {
+    } 
+}*/
+    /* public function shahada() {
 
     echo "The Shahada (Declaration of Faith):\n";
     echo "La ilaha illallah, Muhammadur Rasulullah.\n";
     echo "(There is no god but Allah, Muhammad is the Messenger of Allah.)\n";
-}
+} */
 
-    public function hajj_umrah_info() {
+    /* public function hajj_umrah_info() {
   
     echo "Hajj and Umrah are two sacred pilgrimages in Islam.\n";
     echo "Hajj is the pilgrimage to Mecca that is obligatory for every Muslim who is physically and financially able to perform it.\n";
     echo "Umrah is a pilgrimage to Mecca that can be undertaken at any time of the year.\n";
     echo "It is not obligatory but highly recommended.\n";
-}
+} */
     public function daily_hadith() {
     $hadiths = array(
         "The best among you are those who have the best manners and character. - Prophet Muhammad (peace be upon him)",
@@ -251,7 +251,7 @@ class Library {
         echo "Thank you for considering!\n";
     }
     }
-    public function islamic_greetings() {
+/*     public function islamic_greetings() {
         $greetings = array(
             "Assalamu Alaikum Warahmatullahi Wabarakatuh (May the peace, mercy, and blessings of Allah be with you)",
             "JazakAllahu Khayran (May Allah reward you with goodness)",
@@ -269,8 +269,8 @@ class Library {
         foreach ($greetings as $greeting) {
             echo "$greeting\n";
         }
-    }
-    public function view_islamic_books() {
+    } */
+/*     public function view_islamic_books() {
         $books = array(
             "The Holy Quran",
             "Sahih al-Bukhari",
@@ -288,7 +288,7 @@ class Library {
         foreach ($books as $index => $book) {
             echo ($index + 1) . ". $book\n";
         }
-    }
+    } */
 }
 $islamicWebsite = new Library();
 $userChoice = $islamicWebsite->promptUser();
