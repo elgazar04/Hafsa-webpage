@@ -8,6 +8,8 @@ abstract class Person {
     protected $id;
     protected $country;
     protected $city;
+    //Remove: phone,email,id,country,city
+    // this will affect constructor..
 
     // Constructor
     public function __construct($username, $password, $phone, $email, $country, $city) {
@@ -28,5 +30,6 @@ abstract class Person {
     abstract public function checkId($id);
     abstract public function incorrectNamePass();
     //abstract public function forgetPass();
+    // remove set id,checkid
 }
 ?>
