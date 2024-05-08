@@ -24,9 +24,6 @@ class SignUp extends Person {
         $this->password = $password;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
 
     public function checkName($name) {
         return $this->username === $name;
@@ -36,9 +33,6 @@ class SignUp extends Person {
         return $this->password === $password;
     }
 
-    public function checkId($id) {
-        return $this->id === $id;
-    }
 
     // Getter and setter methods for country and city
     public function getCountry() {
