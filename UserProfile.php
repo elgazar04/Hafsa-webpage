@@ -45,7 +45,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && isset($_
         $userData = $userProfile->getUserProfile($userId);
         
         // Output user profile data (you can customize this part)
-        echo "User ID: " . $userData['user_id'] . "<br>";
+        //echo "User ID: " . $userData['user_id'] . "<br>";
         echo "No of Khatma: " . $userData['khatma'] . "<br>";
         echo "Fasting Days: " . $userData['fasting_days'] . "<br>";
         echo "Quran Progress: " . $userData['quran_progress'] . "<br>";

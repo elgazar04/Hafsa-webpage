@@ -298,6 +298,7 @@ class AdminDashboard {
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="well">';
                     // Display Daily Versus, Duas, and Hadith 
+                    echo "Place ID: ".$row ['id']."<br>";
                     echo "Name: " .$row ['name'] ."<br />";
                     echo "Category " . $row['category'] . "<br>";
                     echo "Location: "  . $row['address']. ", " . $row['city'].  ", ". $row['country']. "<br><hr>" ;
@@ -321,6 +322,49 @@ class AdminDashboard {
             else return false;
         } catch (Exception $e) {
             die("Error: " . $e->getMessage());
+        }
+    }
+
+    public function updateRestaurantMosques($placeId, $RestaurantMosqueData) {
+        try {
+            // Construct the update query
+            $table = 'restaurants_mosques';
+            $condition = "id = $placeId";
+            $result = $this->db->update($table, $RestaurantMosqueData, $condition);
+
+            // Check if the update operation was successful
+            if ($result === true) {
+                echo "Daily Content updated successfully.";
+            } else {
+                // Check for the number of affected rows
+                if ($this->db->getAffectedRows() > 0) {
+                    echo "Daily Content updated successfully.";
+                } else {
+                    echo "User record updated successfully.";
+                }
+            }
+        } catch (Exception $e) {
+            // Handle any exceptions that occur during the database operation
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function deleteRestaurantMosques($placeId){
+        try {
+            // Construct the delete query
+            $table = 'restaurants_mosques';
+            $condition = "id = $placeId";
+            $result = $this->db->delete($table, $condition);
+
+            // Check if the delete operation was successful
+            if ($result === true) {
+                echo "Content deleted successfully.";
+            } else {
+                echo "Content deleted successfully.";
+            }
+        } catch (Exception $e) {
+            // Handle any exceptions that occur during the database operation
+            echo "Error: " . $e->getMessage();
         }
     }
 
@@ -537,13 +581,61 @@ class AdminDashboard {
             <?php    
 
     }
+
+    public function UpdateRestaurantMosquesform(){
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <body>
+            <h2>Adding The Restaur and Mosques Data</h2>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>" method="post">
+                <label for="name">ID of the place: </label><br>
+                <input type="text" id="name" name="placeId" required><br><br>
+
+                <label for="name">NEW name of the place: </label><br>
+                <input type="text" id="name" name="newname" required><br><br>
+
+                <label for="category">NEW category:</label>
+                <select id="category" name="category">
+                    <option value="restaurant">Restaurant</option>
+                    <option value="mosque">Mosque</option>
+                </select>
+                <br><br>    
+                
+                <label for="country">NEW Country:</label><br>
+                <input type="text" id="country" name="country" required><br>
+
+                <label for="city">NEW City:</label><br>
+                <input type="text" id="city" name="city" required><br>
+
+                <label for="address">NEW Address:</label><br>
+                <input type="text" id="address" name="address" required><br><br>
+                
+                <input type="submit" value="Update place data " name="update_RestaurantMosques">   
+            </form> 
+        </body>
+        </html>
+            <?php    
+
+    }
+
+    public function deleteRestaurantMosquesform(){
+        ?>
+        <h2>Delete Place Content</h2>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <label for="dayId">Place ID:</label><br>
+            <input type="number" id="dayId" name="placeId" required><br>
+            <input type="submit" value="Delete Place Content" name="delete_RestaurantMosques">
+        </form>
+        <?php
+    }
     
     // End of Admin dashboard forms
 
     public function displayAllForms(){
         $dashboard = new AdminDashboard();
         try {
-            /* $dashboard->displayUpdateForm();
+            $dashboard->displayUpdateForm();
             $dashboard->insertionForm();
             $dashboard->displayDeleteForm();
             $dashboard->selectUsers();
@@ -554,9 +646,11 @@ class AdminDashboard {
             $dashboard->selectVersesDuasHadith();
             $dashboard->insertionDailyContent();
             $dashboard->updateDailyContent();
-            $dashboard->deleteDailyContent(); */
+            $dashboard->deleteDailyContent();
             $dashboard->selectRestaurantMosques();
             $dashboard->insertionRestaurantMosques();
+            $dashboard->UpdateRestaurantMosquesform();
+            $dashboard->deleteRestaurantMosquesform();
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();    }
     }
@@ -576,7 +670,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'city'=> $_POST['newCity'],
         'country'=>$_POST['newCountry']
     );
-    $dashboard->updateUsers($userId, $newData);
+        $dashboard->updateUsers($userId, $newData);
     }
     elseif (isset($_POST['insert_user'])) {
         try {
@@ -677,6 +771,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ".$_SERVER['PHP_SELF']);
         exit();
     }
+    elseif (isset($_POST['delete_RestaurantMosques'])) {
+        // Handle delete inspiration form submission
+        $placeId = $_POST['placeId'];
+        $dashboard->deleteRestaurantMosques($placeId);
+         // Redirect after deletion to prevent form resubmission
+         header("Location: ".$_SERVER['PHP_SELF']);
+         exit();
+    }
+    elseif (isset($_POST['update_RestaurantMosques'])) {
+        // Handle update inspiration form submission
+        $placeId = $_POST['placeId'];
+        $RestaurantMosqueData = array(
+            'name' => $_POST['newname'],
+            'category' => $_POST['category'],
+            'country' => $_POST['country'],
+            'city' => $_POST['city'],
+            'address'=>$_POST['address'] ,
+        );
+        $dashboard->updateRestaurantMosques($placeId, $RestaurantMosqueData);
+        // Redirect after update to prevent form resubmission
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit();
+    }  
+
 }
 
 // End  of POST handling section ----------------------------------------------

@@ -13,6 +13,8 @@ class Database {
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
+
+
     // Method to execute query
     public function insert($table, $data) {
         $columns = implode(', ', array_keys($data));
@@ -56,6 +58,12 @@ class Database {
         $result = $stmt->get_result();
         return $result;
     }
+
+    public function getAffectedRows() {
+        return $this->conn->affected_rows;
+    }
+
+
     // Method to close connection
     public function closeConnection() {
         $this->conn->close();
