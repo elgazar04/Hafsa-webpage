@@ -104,13 +104,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $signUp->setPassword($password);
         $signUp->signUp();
         echo "User successfully signed up!";
+        
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
      // Redirect after update to prevent form resubmission
      //header("Location:   ".$_SERVER['PHP_SELF']);
-     exit();
-     
+     //exit();
+            //header("Location: SignUp.php"); // Redirect to the main page after form submission
+            exit();
+
 } 
 
 ?>

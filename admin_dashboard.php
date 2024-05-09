@@ -324,6 +324,8 @@ class AdminDashboard {
         }
     }
 
+    
+
     //End Admin in restaurants and mosques Operations
 
 
