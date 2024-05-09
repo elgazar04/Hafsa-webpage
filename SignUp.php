@@ -57,21 +57,9 @@ class SignUp extends Person {
         $this->city = $city;
     }
 
-    // Logic for handling incorrect username/password
     public function incorrectNamePass() {
-        $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
-        $params = [$this->username, $this->password];
-        $result = $this->db->executeQuery($sql, $params);
 
-        if ($result->num_rows == 0) {
-            $this->db->closeConnection();
-            throw new Exception("Incorrect username or password. Please try again.");
-        }
     }
-/* 
-    public function forgetPass() {
-        // Logic for password recovery
-    } */
 
        // Method to validate password requirements
        private function validatePassword($password) {
@@ -104,13 +92,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $signUp->setPassword($password);
         $signUp->signUp();
         echo "User successfully signed up!";
+        
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
      // Redirect after update to prevent form resubmission
      //header("Location:   ".$_SERVER['PHP_SELF']);
-     exit();
-     
+     //exit();
+            //header("Location: SignUp.php"); // Redirect to the main page after form submission
+            exit();
+
 } 
 
 ?>

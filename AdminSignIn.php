@@ -6,8 +6,8 @@ class SignIn extends Person {
     private $db;
 
     // Constructor
-    public function __construct($username, $password) {
-        parent::__construct($username, $password, '', '', '',''); // Set empty values for phone, email, and id
+    public function __construct($id, $password) {
+        parent::__construct($id, $password, '', '', '',''); // Set empty values for phone, email, and id
         $this->db = new Database();
     }
 
@@ -38,19 +38,19 @@ class SignIn extends Person {
 
     // Logic for handling incorrect username/password
     public function incorrectNamePass() {
-        $sql = "SELECT * FROM admin WHERE name = ?";
+        $sql = "SELECT * FROM admin WHERE ID = ?";
         $params = [$this->username];
         $result = $this->db->executeQuery($sql, $params);
 
         if ($result->num_rows == 0) {
             $this->db->closeConnection();
-            throw new Exception("Incorrect username. Please try again.");
+            throw new Exception("Incorrect ID & password. Please try again.");
         }
 
         $user = $result->fetch_assoc();
         if ($user['password'] !== $this->password) {
             $this->db->closeConnection();
-            throw new Exception("Incorrect password. Please try again.");
+            throw new Exception("Incorrect ID & password. Please try again.");
         }
 
         // Authentication successful
@@ -71,11 +71,11 @@ class SignIn extends Person {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Retrieve form data
-        $username = $_POST['username'];
+        $id = $_POST['username'];
         $password = $_POST['password'];
 
         // Create a new SignIn object
-        $signIn = new SignIn($username, $password);
+        $signIn = new SignIn($id, $password);
 
         // Attempt to sign in the user
         $signIn->incorrectNamePass();
@@ -96,8 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <h2>Admin Sign In</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br>
+        <label for="username">ID:</label><br>
+        <input type="number" id="username" name="username" required><br>
 
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required><br>
