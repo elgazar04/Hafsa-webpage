@@ -24,9 +24,6 @@ class SignUp extends Person {
         $this->password = $password;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
 
     public function checkName($name) {
         return $this->username === $name;
@@ -36,9 +33,6 @@ class SignUp extends Person {
         return $this->password === $password;
     }
 
-    public function checkId($id) {
-        return $this->id === $id;
-    }
 
     // Getter and setter methods for country and city
     public function getCountry() {
@@ -57,18 +51,6 @@ class SignUp extends Person {
         $this->city = $city;
     }
 
-    // Logic for handling incorrect username/password
-    public function incorrectNamePass() {
-        $sql = "SELECT * FROM user WHERE username = ? AND password = ?";
-        $params = [$this->username, $this->password];
-        $result = $this->db->executeQuery($sql, $params);
-
-        if ($result->num_rows == 0) {
-            $this->db->closeConnection();
-            throw new Exception("Incorrect username or password. Please try again.");
-        }
-    }
-/* 
     public function forgetPass() {
         // Logic for password recovery
     } */
